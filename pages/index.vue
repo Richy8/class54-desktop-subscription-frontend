@@ -108,7 +108,7 @@ export default {
   methods: {
     checkForm (e) {
       if (this.email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/)) {
-        this.modal = true
+        this.sendEmail()
       } else {
         this.notify = true
         setTimeout(() => {
@@ -122,6 +122,24 @@ export default {
     },
     closealert () {
       this.notify = false
+    },
+    async sendEmail () {
+      try {
+        const formData = new FormData()
+        formData.append('email', this.email)
+        await this.$axios.post('https://class54-backend.herokuapp.com/admin/notify/create?email=igenew@gmail.com',
+          formData
+        ).then((response) => {
+          console.log(response.data)
+          this.modal = true
+        })
+      } catch (e) {
+        this.snackbar = {
+          message: 'There was an error',
+          color: 'error',
+          show: true
+        }
+      }
     }
   }
 }
