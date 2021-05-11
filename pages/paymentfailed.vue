@@ -11,9 +11,11 @@
           <p class="item_inner">
             We’re sorry, we couldn’t automatically activate your app. Check your card and use the button below to try again.
           </p>
-          <button class="btn-primary tryagain">
-            Try again
-          </button>
+          <nuxt-link to="/activate">
+            <button class="btn-primary tryagain">
+              Try again
+            </button>
+          </nuxt-link>
         </div>
       </div>
       <div class="footer">

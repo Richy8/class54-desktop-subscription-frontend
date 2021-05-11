@@ -2,7 +2,7 @@
   <div>
     <div class="homepage">
       <!-- <Notification v-if="notify" @click="closealert" /> -->
-      <div v-if="notify" class="alert">
+      <div v-if="notify" :class="{ leaveanime: notifyClassLeave }" class="alert">
         <div class="left">
           <div class="badge">
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -102,7 +102,8 @@ export default {
       email: '',
       modal: false,
       errors: [],
-      notify: false
+      notify: false,
+      notifyClassLeave: false
     }
   },
   methods: {
@@ -112,8 +113,12 @@ export default {
       } else {
         this.notify = true
         setTimeout(() => {
+          this.notifyClassLeave = true
+        }, 5000)
+        setTimeout(() => {
           this.notify = false
-        }, 3000)
+          this.notifyClassLeave = false
+        }, 6000)
       }
       e.preventDefault()
     },
@@ -121,13 +126,17 @@ export default {
       this.modal = false
     },
     closealert () {
-      this.notify = false
+      this.notifyClassLeave = true
+      setTimeout(() => {
+        this.notify = false
+        this.notifyClassLeave = false
+      }, 100)
     },
     async sendEmail () {
       try {
         const formData = new FormData()
         formData.append('email', this.email)
-        await this.$axios.post('https://class54-backend.herokuapp.com/admin/notify/create?email=igenew@gmail.com',
+        await this.$axios.post(`https://class54-backend.herokuapp.com/admin/notify/create?.${this.email}`,
           formData
         ).then((response) => {
           console.log(response.data)

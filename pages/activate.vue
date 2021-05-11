@@ -30,7 +30,7 @@
                     class="btn-outline proceed"
                     type="phone"
                     name="phone"
-                    placeholder="0810242546|"
+                    placeholder="0810242546"
                   >
                   <label for="serial">Phone number</label>
                 </div>
@@ -43,6 +43,7 @@
                   :close="close"
                   :embed="false"
                   class="btn-primary proceed"
+                  :initialize="beforePayment"
                 >
                   <i class="fas fa-money-bill-alt" />
                   Make Payment
@@ -111,14 +112,32 @@ export default {
   },
   methods: {
     processPayment: () => {
-      console.log()
+      // this.afterPayment()
       // window.alert('Payment recieved')
-      // window.location = '/activatingpayment'
+      window.location = '/activatingpayment'
     },
     close: () => {
       // eslint-disable-next-line no-console
       console.log('You closed checkout page')
       window.location = '/paymentfailed'
+    },
+    async afterPayment () {
+      try {
+        const formData = new FormData()
+        formData.append('email', this.email)
+        await this.$axios.post('https://class54-backend.herokuapp.com/admin/desktop-subscription/payment/verification',
+          formData
+        ).then((response) => {
+          console.log(response.data)
+          this.modal = true
+        })
+      } catch (e) {
+        this.snackbar = {
+          message: 'There was an error',
+          color: 'error',
+          show: true
+        }
+      }
     }
   }
 }
