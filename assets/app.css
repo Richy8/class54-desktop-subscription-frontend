@@ -27,6 +27,7 @@ a:hover {
 }
 
 .btn-primary {
+  font-family: "Source Sans Pro", sans-serif;
   height: 54px;
   width: 144px;
   background: #29cc7a;
@@ -59,9 +60,10 @@ a:hover {
 }
 
 input.btn-outline {
+  font-family: "Source Sans Pro", sans-serif;
   height: 54px;
   width: 360px;
-  background: #FAFAFA;
+  background: #fafafa;
   border-radius: 4px;
   border: 1px solid #e0e0e0;
   -webkit-box-sizing: border-box;
@@ -70,7 +72,7 @@ input.btn-outline {
   font-weight: normal;
   font-size: 16px;
   line-height: 150%;
-  color: #dbdbdb;
+  color: #4F4F4F;
   padding-left: 16px;
 }
 
@@ -115,7 +117,7 @@ input.btn-outline::placeholder {
 input.btn-outline:focus {
   height: 54px;
   width: 360px;
-  background: #FFFFFF;
+  background: #ffffff;
   border-radius: 4px 0px 0px 4px;
   border: 1px solid #29cc7a;
   outline: none;
@@ -236,7 +238,7 @@ input.btn-outline:focus {
 /* Modal */
 /* The Modal (background) */
 .modal {
-  display: block;
+  display: none;
   /* Hidden by default */
   position: fixed;
   /* Stay in place */
@@ -298,7 +300,7 @@ input.btn-outline:focus {
 .modal-content .modal--content {
   font-style: normal;
   font-weight: normal;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 20px;
   color: #4f4f4f;
   text-align: center;
@@ -456,7 +458,7 @@ input.btn-outline:focus {
   font-weight: bold;
   font-size: 24px;
   line-height: 32px;
-  color: #00506B;
+  color: #00506b;
 }
 
 .faq--head {
@@ -595,8 +597,8 @@ main {
 }
 
 .expanded {
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .ptag {
@@ -639,8 +641,8 @@ main {
   background: transparent;
   border-left: 1px solid #29cc7a;
   border-bottom: 1px solid #29cc7a;
-  -webkit-transition: all .3s ease-in-out;
-  transition: all .3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   margin-right: 30px;
   margin-top: 24px;
 }
@@ -730,7 +732,7 @@ main {
 }
 
 .activate-download .activate_download--right {
-  background: #F5FFFA;
+  background: #f5fffa;
   border-radius: 4px;
   padding: 32px;
 }
@@ -782,7 +784,7 @@ main {
   font-weight: 600;
   font-size: 14px;
   line-height: 16px;
-  color: #4F4F4F;
+  color: #4f4f4f;
 }
 
 .enter-phone {
@@ -902,7 +904,7 @@ p.item_inner {
   font-weight: normal;
   font-size: 16;
   line-height: 20px;
-  color: #4F4F4F;
+  color: #4f4f4f;
   text-align: center;
   margin-bottom: 16px;
 }
@@ -920,7 +922,7 @@ p.item_inner.thanks {
   font-weight: normal;
   font-size: 16px;
   line-height: 16px;
-  color: #343A40;
+  color: #343a40;
 }
 
 .activate-confirm {
@@ -1010,7 +1012,6 @@ p.item_inner.thanks {
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
-/*# sourceMappingURL=app.css.map */
 
 .alert {
   position: absolute;
