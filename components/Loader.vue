@@ -3,6 +3,6 @@
     <div id="loader">
       <img src="/loader.svg" alt="">
     </div>
-    <p>Kindly wait while we automatically activate your App</p>
+    <p><slot name="col-4" /></p>
   </div>
 </template>

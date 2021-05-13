@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="homepage">
+    <div v-if="homepage" class="homepage">
       <!-- <Notification v-if="notify" @click="closealert" /> -->
       <div v-if="notify" :class="{ leaveanime: notifyClassLeave }" class="alert">
         <div class="left">
@@ -92,6 +92,11 @@
         </div>
       </div>
     </div>
+    <Loader v-if="loader">
+      <template slot="col-4">
+        {{ loadertext }}
+      </template>
+    </Loader>
   </div>
 </template>
 
@@ -105,7 +110,10 @@ export default {
       notify: false,
       notifyClassLeave: false,
       message: '',
-      messagestrong: ''
+      messagestrong: '',
+      loader: false,
+      homepage: true,
+      loadertext: ''
     }
   },
   methods: {
@@ -144,8 +152,18 @@ export default {
           formData
         ).then((response) => {
           console.log(response)
-          // if ()
-          this.modal = true
+          this.homepage = false
+          this.loadertext = 'Submitting...'
+          this.loader = true
+
+          setTimeout(() => {
+            if (response.data.sucess === true) {
+              this.homepage = true
+              this.loader = false
+              this.modal = true
+            }
+          }, 3000)
+
           this.email = ''
         })
       } catch (e) {

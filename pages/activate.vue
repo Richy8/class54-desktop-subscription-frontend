@@ -85,7 +85,11 @@
         </div>
       </div>
     </client-only>
-    <Loader v-if="loader" />
+    <Loader v-if="loader">
+      <template slot="col-4">
+        {{ loadertext }}
+      </template>
+    </Loader>
     <Activationcode
       v-if="activation"
     >
@@ -127,8 +131,9 @@ export default {
       errorclass: false,
       disabled: false,
       activation_code: '',
-      activation: true,
-      tooltip: false
+      activation: false,
+      tooltip: false,
+      loadertext: ''
     }
   },
   computed: {
@@ -149,6 +154,7 @@ export default {
       if (data.status === 'success') {
         this.payment = false
         this.loader = true
+        this.loadertext = 'Kindly wait while we automatically activate your App'
         await this.beforePayment()
         await this.afterPayment()
         this.loader = false
