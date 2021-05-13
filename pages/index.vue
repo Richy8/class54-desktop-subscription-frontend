@@ -151,18 +151,19 @@ export default {
         await this.$axios.post(`https://class54-backend.herokuapp.com/admin/notify/create?.${this.email}`,
           formData
         ).then((response) => {
-          console.log(response)
-          this.homepage = false
-          this.loadertext = 'Submitting...'
-          this.loader = true
+          // console.log(response)
+          // this.homepage = false
+          // this.loadertext = 'Submitting...'
+          // this.loader = true
+          this.modal = true
 
-          setTimeout(() => {
-            if (response.data.sucess === true) {
-              this.homepage = true
-              this.loader = false
-              this.modal = true
-            }
-          }, 3000)
+          // setTimeout(() => {
+          //   if (response.data.sucess === true) {
+          //     this.homepage = true
+          //     this.loader = false
+          //     this.modal = true
+          //   }
+          // }, 3000)
 
           this.email = ''
         })
