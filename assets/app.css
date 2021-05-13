@@ -20,10 +20,14 @@ body {
 a {
   color: #29cc7a;
   text-decoration: none;
+  transition: 1s color;
+transition-timing-function: ease-in-out;
 }
 
 a:hover {
   color: #00ca64;
+  transition-delay:0.2s;
+transition-timing-function: ease-in-out;
 }
 
 .btn-primary {
@@ -39,14 +43,18 @@ a:hover {
   line-height: 150%;
   color: #ffffff;
   cursor: pointer;
+  transition: 1s background-color;
+transition-timing-function: ease-in-out;
 }
 
 .btn-primary:hover {
   height: 54px;
   width: 144px;
-  background: #00ca64;
+  background-color: #00ca64;
   border-radius: 4px;
   border: none;
+  transition-delay:0.2s;
+transition-timing-function: ease-in-out;
 }
 
 .formsubmit {
@@ -393,6 +401,8 @@ input.btn-outline:focus {
   font-size: 16px;
   line-height: 14px;
   color: #696969;
+  transition: 1s color;
+  transition-timing-function: ease-in-out;
 }
 
 .navigation .inner--nav .menu a:active {
@@ -401,7 +411,10 @@ input.btn-outline:focus {
 
 .navigation .inner--nav .menu a:hover {
   color: #00ca64;
+  transition: 0s color;
+  transition-timing-function: ease-in-out;
 }
+
 
 .navigation .inner--nav .menu ul {
   list-style: none;
@@ -650,8 +663,14 @@ main {
   line-height: 32px;
   color: #000000;
   margin: 0 !important;
+  transition: 1s color;
+  transition-timing-function: ease-in-out;
 }
-
+.question:hover{
+  color:#00ca64;
+  transition-delay:0.2s;
+  transition-timing-function: ease-in-out;
+}
 .answer {
   font-size: 18px !important;
   line-height: 26px !important;

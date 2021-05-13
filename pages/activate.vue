@@ -42,7 +42,6 @@
                   Phone number must be a minimum of 11 digits
                 </p>
                 <paystack
-                  v-if="disabled"
                   :amount="amount * 100"
                   :email="phone + '@class54.com'"
                   :paystackkey="PUBLIC_KEY"

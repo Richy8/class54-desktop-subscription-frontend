@@ -30,7 +30,6 @@
                 Phone number must be a minimum of 11 digits
               </p>
               <paystack
-                v-if="disabled"
                 :amount="amount * 100"
                 :email="phone + '@class54.com'"
                 :paystackkey="PUBLIC_KEY"
@@ -93,9 +92,7 @@ export default {
       errorclass: false,
       disabled: false,
       activation_code: '',
-      activation: false,
-      tooltip: false,
-      loadertext: ''
+      activation: false
     }
   },
   computed: {
@@ -116,7 +113,6 @@ export default {
       if (data.status === 'success') {
         this.payment = false
         this.loader = true
-        this.loadertext = 'Kindly wait while we automatically activate your App'
         await this.beforePayment()
         await this.afterPayment()
         this.loader = false
