@@ -1,7 +1,7 @@
 <template>
   <div>
     <client-only>
-      <div id="activateod">
+      <div v-if="payment" id="activateod">
         <Header />
         <div class="inner-container entry--container-flex">
           <div class="enter-phone">
@@ -10,19 +10,27 @@
                 Enter your phone number to continue
               </p>
               <!-- <form action="/pending.html" method="get"> -->
-              <div class="form-group">
+              <div class="form-group" style="margin-bottom: 3px">
                 <input
                   id=""
                   v-model="phone"
                   required
                   class="btn-outline proceed"
-                  type="phone"
+                  :class="{ error: errorclass }"
+                  type="tel"
                   name="phone"
                   placeholder="0810242546"
+                  minlength="11"
+                  maxlength="11"
+                  @input="acceptNumber"
                 >
                 <label for="serial">Phone number</label>
               </div>
+              <p v-if="error" class="error">
+                Phone number must be a minimum of 11 digits
+              </p>
               <paystack
+                v-if="disabled"
                 :amount="amount * 100"
                 :email="phone + '@class54.com'"
                 :paystackkey="PUBLIC_KEY"
@@ -31,6 +39,7 @@
                 :close="close"
                 :embed="false"
                 class="btn-primary proceed"
+                style="margin-top: 28px"
                 @click="beforePayment"
               >
                 <i class="fas fa-money-bill-alt" />
@@ -47,6 +56,14 @@
         </div>
       </div>
     </client-only>
+    <Loader v-if="loader" />
+    <Activationcode
+      v-if="activation"
+    >
+      <template slot="col-1">
+        {{ activation_code }}
+      </template>
+    </Activationcode>
   </div>
 </template>
 
@@ -66,7 +83,14 @@ export default {
       amount: '2000',
       email: 'zenzy56@gmail.com',
       phone: '',
-      PUBLIC_KEY: 'pk_test_7ec5ca2a828fc887b0a394b93a6d814725d7c0e5'
+      PUBLIC_KEY: 'pk_test_7ec5ca2a828fc887b0a394b93a6d814725d7c0e5',
+      payment: true,
+      loader: false,
+      error: false,
+      errorclass: false,
+      disabled: false,
+      activation_code: '',
+      activation: false
     }
   },
   computed: {
@@ -83,10 +107,19 @@ export default {
   },
   methods: {
     async processPayment (data) {
-      console.log(data, this)
-      await this.afterPayment()
-      window.alert('Payment recieved')
-    //   window.location = '/activatingpayment'
+      console.log(data.status)
+      if (data.status === 'success') {
+        this.payment = false
+        this.loader = true
+        await this.beforePayment()
+        await this.afterPayment()
+        this.loader = false
+        this.activation = true
+        // window.location = '/confirmation'
+        // this.$router.push(`/activation_code/:id?${this.activation_code}`)
+      } else {
+        window.location = '/paymentfailed'
+      }
     },
     close: () => {
       // eslint-disable-next-line no-console
@@ -102,6 +135,7 @@ export default {
           // eslint-disable-next-line no-console
         ).then((response) => {
           console.log(response.data)
+          this.activation_code = response.data.activation_code
           this.modal = true
         })
       } catch (e) {
@@ -112,8 +146,39 @@ export default {
         }
       }
     },
-    beforePayment () {
-      console.log('sdsdsd')
+    async beforePayment () {
+      try {
+        const formData = new FormData()
+        formData.append('transaction_ref', this.reference)
+        formData.append('serial', 'J8F8-F73-C61')
+        formData.append('machineid', 'YUIHBH7876JJK')
+        formData.append('amount', this.amount)
+        formData.append('phone_no', this.phone)
+        formData.append('transaction_ref', this.reference)
+        await this.$axios.post('https://class54-backend.herokuapp.com/admin/activate',
+          formData
+          // eslint-disable-next-line no-console
+        ).then((response) => {
+          console.log(response.data)
+          this.modal = true
+        })
+      } catch (e) {
+        this.snackbar = {
+          message: 'There was an error',
+          color: 'error',
+          show: true
+        }
+      }
+    },
+    acceptNumber () {
+      if (this.phone.length < 11) {
+        this.error = true
+        this.errorclass = true
+      } else if (this.phone.length === 11) {
+        this.error = false
+        this.errorclass = false
+        this.disabled = true
+      }
     }
   }
 }
