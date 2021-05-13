@@ -146,6 +146,7 @@ export default {
           console.log(response)
           // if ()
           this.modal = true
+          this.email = ''
         })
       } catch (e) {
         console.log('Your email has been taken')

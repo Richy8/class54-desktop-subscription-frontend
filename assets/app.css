@@ -1023,7 +1023,7 @@ p.item_inner.thanks {
 }
 
 .tooltip .tooltiptext {
-  visibility: hidden;
+  /* visibility: hidden; */
   width: 120px;
   background-color: black;
   color: #fff;
@@ -1048,9 +1048,9 @@ p.item_inner.thanks {
   border-color: black transparent transparent transparent;
 }
 
-.tooltip:hover .tooltiptext {
+/* .tooltip:hover .tooltiptext {
   visibility: visible;
-}
+} */
 
 .alert {
   position: absolute;

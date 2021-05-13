@@ -92,6 +92,12 @@
       <template slot="col-1">
         {{ activation_code }}
       </template>
+      <template slot="col-2">
+        <span v-if="tooltip" class="tooltiptext">Copied</span>
+      </template>
+      <template slot="col-3">
+        <img id="clipselect" src="/clipboard.svg" alt="" height="20" @click="clipimage">
+      </template>
     </Activationcode>
   </div>
 </template> />
@@ -121,7 +127,8 @@ export default {
       errorclass: false,
       disabled: false,
       activation_code: '',
-      activation: false
+      activation: true,
+      tooltip: false
     }
   },
   computed: {
@@ -210,8 +217,12 @@ export default {
         this.errorclass = false
         this.disabled = true
       }
+    },
+    clipimage () {
+      setTimeout(() => {
+        this.tooltip = true
+      }, 1000)
     }
-
   }
 }
 </script>

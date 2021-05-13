@@ -21,8 +21,8 @@
             > -->
             <slot name="col-1" />
             <div class="tooltip">
-              <span class="tooltiptext">Copied</span>
-              <img id="clipselect" src="/clipboard.svg" alt="" height="20">
+              <slot name="col-2" />
+              <slot name="col-3" />
             </div>
           </div>
         </div>
