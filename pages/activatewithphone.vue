@@ -107,7 +107,10 @@ export default {
     }
   },
   mounted () {
-
+    this.$router.push({
+      path: '/activatewithphone',
+      query: { serial: this.$route.params.serial, machine: this.$route.params.machine }
+    })
   },
   methods: {
     async processPayment (data) {
