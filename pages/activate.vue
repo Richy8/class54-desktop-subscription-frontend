@@ -49,7 +49,8 @@
                   :callback="processPayment"
                   :close="close"
                   :embed="false"
-                  class="btn-primary proceed"
+                  class="btn-disabled proceed"
+                  :class="{ btnprimary : btnprimary }"
                   :initialize="beforePayment"
                   style="margin-top: 28px"
                 >
@@ -132,7 +133,8 @@ export default {
       activation_code: '',
       activation: false,
       tooltip: false,
-      loadertext: ''
+      loadertext: '',
+      btnprimary: false
     }
   },
   computed: {
@@ -221,6 +223,7 @@ export default {
         this.error = false
         this.errorclass = false
         this.disabled = true
+        this.btnprimary = true
       }
     },
     clipimage () {

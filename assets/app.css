@@ -34,7 +34,7 @@ transition-timing-function: ease-in-out;
   font-family: "Source Sans Pro", sans-serif;
   height: 54px;
   width: 144px;
-  background: #29cc7a;
+  background: #29cc7a !important;
   border-radius: 4px;
   border: none;
   font-style: normal;
@@ -46,8 +46,40 @@ transition-timing-function: ease-in-out;
   transition: 1s background-color;
 transition-timing-function: ease-in-out;
 }
+.btn-primary,.btnprimary {
+  font-family: "Source Sans Pro", sans-serif;
+  height: 54px;
+  width: 144px;
+  background: #29cc7a !important;
+  border-radius: 4px;
+  border: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 1s background-color;
+transition-timing-function: ease-in-out;
+}
+.btn-disabled{
+  background: #C5EBD8;
+  border-radius: 4px;
+  border: none;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150%;
+  color: #ffffff;
+  cursor: pointer;
+  transition: 1s background-color;
+transition-timing-function: ease-in-out;
+font-family: "Source Sans Pro", sans-serif;
+height: 54px;
+width: 144px;
+}
 
-.btn-primary:hover {
+.btn-primary:hover,.btnprimary:hover {
   height: 54px;
   width: 144px;
   background-color: #00ca64;
