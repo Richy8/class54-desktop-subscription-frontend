@@ -103,7 +103,6 @@
         <img id="clipselect" src="/clipboard.svg" alt="" height="20" @click="clipimage">
       </template>
     </Activationcode>
-    {{ $route.params.serial }}
   </div>
 </template> />
 
@@ -147,10 +146,6 @@ export default {
   },
   // http://localhost:3000/activate?serial=sddsdsds&machine=sdsdsd
   mounted () {
-    this.$router.push({
-      path: '/activate',
-      query: { serial: this.$route.params.serial, machine: this.$route.params.machine }
-    })
     // this.$router.push({ path: '/activate', query: { serial: this.$route.params.serial, machine: this.$route.params.machine } })
   },
   methods: {

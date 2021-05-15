@@ -60,11 +60,18 @@
       <template slot="col-4">
         {{ loadertext }}
       </template>
-    </Loader>    <Activationcode
+    </Loader>
+    <Activationcode
       v-if="activation"
     >
       <template slot="col-1">
         {{ activation_code }}
+      </template>
+      <template slot="col-2">
+        <span v-if="tooltip" class="tooltiptext">Copied</span>
+      </template>
+      <template slot="col-3">
+        <img id="clipselect" src="/clipboard.svg" alt="" height="20" @click="clipimage">
       </template>
     </Activationcode>
   </div>
@@ -94,7 +101,9 @@ export default {
       disabled: false,
       activation_code: '',
       activation: false,
-      btnprimary: false
+      btnprimary: false,
+      tooltip: false,
+      loadertext: ''
     }
   },
   computed: {
@@ -104,12 +113,19 @@ export default {
         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
       for (let i = 0; i < 10; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
       return text
+    },
+    serial () {
+      return this.$route.query.serial
+    },
+    machine () {
+      return this.$route.query.machine
     }
   },
   mounted () {
     this.$router.push({
       path: '/activatewithphone',
-      query: { serial: this.$route.params.serial, machine: this.$route.params.machine }
+      query: { serial: this.$route.query.serial, machine: this.$route.query.machine },
+      params: { errors: '123' }
     })
   },
   methods: {
@@ -118,6 +134,7 @@ export default {
       if (data.status === 'success') {
         this.payment = false
         this.loader = true
+        this.loadertext = 'Kindly wait while we automatically activate your App'
         await this.beforePayment()
         await this.afterPayment()
         this.loader = false
@@ -157,8 +174,8 @@ export default {
       try {
         const formData = new FormData()
         formData.append('transaction_ref', this.reference)
-        formData.append('serial', 'J8F8-F73-C61')
-        formData.append('machineid', 'YUIHBH7876JJK')
+        formData.append('serial', this.serial)
+        formData.append('machineid', this.machine)
         formData.append('amount', this.amount)
         formData.append('phone_no', this.phone)
         formData.append('transaction_ref', this.reference)
@@ -187,6 +204,11 @@ export default {
         this.disabled = true
         this.btnprimary = true
       }
+    },
+    clipimage () {
+      setTimeout(() => {
+        this.tooltip = true
+      }, 1000)
     }
   }
 }
