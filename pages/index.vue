@@ -170,6 +170,7 @@ export default {
           this.email = ''
         })
       } catch (e) {
+        this.spinner = false
         console.log('Your email has been taken')
         this.notify = true
         this.messagestrong = 'Email has been taken:'
