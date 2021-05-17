@@ -38,6 +38,9 @@ export default {
       {
         src: '/app.js',
         type: 'text/javascript'
+      },
+      {
+        src: 'https://kit.fontawesome.com/3cab0b951b.js', crossorigin: 'anonymous'
       }
     ]
   },
@@ -64,7 +67,21 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    [
+      'nuxt-fontawesome', {
+        imports: [
+          {
+            set: '@fortawesome/free-solid-svg-icons',
+            icons: ['fas']
+          },
+          {
+            set: '@fortawesome/free-brands-svg-icons',
+            icons: ['fab']
+          }
+        ]
+      }
+    ]
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

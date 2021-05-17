@@ -46,7 +46,7 @@
                   placeholder="imoleolu2012@gmail.com"
                 >
                 <button id="notify" type="submit" class="formsubmit btn-primary">
-                  Notify Me
+                  Notify Me <i v-if="spinner" class="fas fa-spinner fa-spin" />
                 </button>
               </div>
               <p class="enquiry">
@@ -113,12 +113,14 @@ export default {
       messagestrong: '',
       loader: false,
       homepage: true,
-      loadertext: ''
+      loadertext: '',
+      spinner: false
     }
   },
   methods: {
     checkForm (e) {
       if (this.email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,24}))$/)) {
+        this.spinner = true
         this.sendEmail()
       } else {
         this.notify = true
@@ -156,7 +158,7 @@ export default {
           // this.loadertext = 'Submitting...'
           // this.loader = true
           this.modal = true
-
+          this.spinner = false
           // setTimeout(() => {
           //   if (response.data.sucess === true) {
           //     this.homepage = true
