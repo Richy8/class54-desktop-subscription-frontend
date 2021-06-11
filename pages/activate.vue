@@ -10,7 +10,7 @@
                 <p class="header-item">
                   Activate your App
                 </p>
-                <input v-model="amount" name="amount" hidden value="2000">
+                <input v-model="amount" name="amount" hidden value="2000" />
                 <div class="form-group">
                   <input
                     id=""
@@ -19,7 +19,7 @@
                     name="serial"
                     required
                     placeholder="e.g. W435-635-773"
-                  >
+                  />
                   <label for="serial">10-Digit unique serial number</label>
                 </div>
                 <div class="form-group" style="margin-bottom: 3px">
@@ -35,7 +35,7 @@
                     min-length="11"
                     maxlength="11"
                     @input="acceptNumber"
-                  >
+                  />
                   <label for="serial">Phone number</label>
                 </div>
                 <p v-if="error" class="error">
@@ -50,7 +50,7 @@
                   :close="close"
                   :embed="false"
                   class="btn-disabled proceed"
-                  :class="{ btnprimary : btnprimary }"
+                  :class="{ btnprimary: btnprimary }"
                   :initialize="beforePayment"
                   style="margin-top: 28px"
                 >
@@ -65,14 +65,16 @@
                 </p>
                 <ul class="activate_list">
                   <li>
-                    Download and follow the installation wizard till installation is
-                    completed.
+                    Download and follow the installation wizard till
+                    installation is completed.
                   </li>
                   <li>
                     Upon successful installion, launch the app and navigate to
                     activation.
                   </li>
-                  <li>Copy the Unique serial number displayed and enter it here</li>
+                  <li>
+                    Copy the Unique serial number displayed and enter it here
+                  </li>
                 </ul>
               </div>
             </div>
@@ -90,9 +92,7 @@
         {{ loadertext }}
       </template>
     </Loader>
-    <Activationcode
-      v-if="activation"
-    >
+    <Activationcode v-if="activation">
       <template slot="col-1">
         {{ activation_code }}
       </template>
@@ -100,136 +100,153 @@
         <span v-if="tooltip" class="tooltiptext">Copied</span>
       </template>
       <template slot="col-3">
-        <img id="clipselect" src="/clipboard.svg" alt="" height="20" @click="clipimage">
+        <img
+          id="clipselect"
+          src="/clipboard.svg"
+          alt=""
+          height="20"
+          @click="clipimage"
+        />
       </template>
     </Activationcode>
   </div>
-</template> />
+</template>
+/>
 
 <script>
-
 // import paystack from 'vue-paystack'
 // const paystack = require('vue-paystack')
 
 export default {
   components: {
     paystack: () => {
-      if (process.client) { return import('vue-paystack') }
+      if (process.client) {
+        return import("vue-paystack");
+      }
     }
   },
   data: () => {
     return {
-      amount: '2000',
-      email: 'zenzy56@gmail.com',
-      phone: '',
-      PUBLIC_KEY: 'pk_test_7ec5ca2a828fc887b0a394b93a6d814725d7c0e5',
+      amount: "2000",
+      email: "zenzy56@gmail.com",
+      phone: "",
+      PUBLIC_KEY: "pk_test_7ec5ca2a828fc887b0a394b93a6d814725d7c0e5",
       payment: true,
       loader: false,
       error: false,
       errorclass: false,
       disabled: false,
-      activation_code: '',
+      activation_code: "",
       activation: false,
       tooltip: false,
-      loadertext: '',
+      loadertext: "",
       btnprimary: false
-    }
+    };
   },
   computed: {
-    reference () {
-      let text = ''
+    reference() {
+      let text = "";
       const possible =
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-      for (let i = 0; i < 10; i++) { text += possible.charAt(Math.floor(Math.random() * possible.length)) }
-      return text
+        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+      for (let i = 0; i < 10; i++) {
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+      }
+      return text;
     }
   },
   // http://localhost:3000/activate?serial=sddsdsds&machine=sdsdsd
-  mounted () {
+  mounted() {
     // this.$router.push({ path: '/activate', query: { serial: this.$route.params.serial, machine: this.$route.params.machine } })
   },
   methods: {
-    async processPayment (data) {
-      console.log(data.status)
-      if (data.status === 'success') {
-        this.payment = false
-        this.loader = true
-        this.loadertext = 'Kindly wait while we automatically activate your App'
-        await this.beforePayment()
-        await this.afterPayment()
-        this.loader = false
-        this.activation = true
+    async processPayment(data) {
+      console.log(data.status);
+      if (data.status === "success") {
+        this.payment = false;
+        this.loader = true;
+        this.loadertext =
+          "Kindly wait while we automatically activate your App";
+        await this.beforePayment();
+        await this.afterPayment();
+        this.loader = false;
+        this.activation = true;
         // window.location = '/confirmation'
         // this.$router.push(`/activation_code/:id?${this.activation_code}`)
       } else {
-        window.location = '/paymentfailed'
+        window.location = "/paymentfailed";
       }
     },
     close: () => {
       // eslint-disable-next-line no-console
-      console.log('You closed checkout page')
-      window.location = '/paymentfailed'
+      console.log("You closed checkout page");
+      window.location = "/paymentfailed";
     },
-    async afterPayment () {
+    async afterPayment() {
       try {
-        const formData = new FormData()
-        formData.append('transaction_ref', this.reference)
-        await this.$axios.post('https://class54-backend.herokuapp.com/admin/desktop-subscription/payment/verification',
-          formData
-          // eslint-disable-next-line no-console
-        ).then((response) => {
-          console.log(response.data)
-          this.activation_code = response.data.activation_code
-          this.modal = true
-        })
+        const formData = new FormData();
+        formData.append("transaction_ref", this.reference);
+        await this.$axios
+          .post(
+            "http://3.142.39.206/admin/desktop-subscription/payment/verification",
+            formData
+            // eslint-disable-next-line no-console
+          )
+          .then(response => {
+            console.log(response.data);
+            this.activation_code = response.data.activation_code;
+            this.modal = true;
+          });
       } catch (e) {
         this.snackbar = {
-          message: 'There was an error',
-          color: 'error',
+          message: "There was an error",
+          color: "error",
           show: true
-        }
+        };
       }
     },
-    async beforePayment () {
+    async beforePayment() {
       try {
-        const formData = new FormData()
-        formData.append('transaction_ref', this.reference)
-        formData.append('serial', 'J8F8-F73-C61')
-        formData.append('machineid', 'YUIHBH7876JJl')
-        formData.append('amount', this.amount)
-        formData.append('phone_no', this.phone)
-        formData.append('transaction_ref', this.reference)
-        await this.$axios.post('https://class54-backend.herokuapp.com/admin/activate',
-          formData
-          // eslint-disable-next-line no-console
-        ).then((response) => {
-          console.log(response.data.activation_code)
-          this.modal = true
-        })
+        const formData = new FormData();
+        formData.append("transaction_ref", this.reference);
+        formData.append("serial", "J8F8-F73-C61");
+        formData.append("machineid", "YUIHBH7876JJl");
+        formData.append("amount", this.amount);
+        formData.append("phone_no", this.phone);
+        formData.append("transaction_ref", this.reference);
+        await this.$axios
+          .post(
+            "http://3.142.39.206/admin/activate",
+            formData
+            // eslint-disable-next-line no-console
+          )
+          .then(response => {
+            console.log(response.data.activation_code);
+            this.modal = true;
+          });
       } catch (e) {
         this.snackbar = {
-          message: 'There was an error',
-          color: 'error',
+          message: "There was an error",
+          color: "error",
           show: true
-        }
+        };
       }
     },
-    acceptNumber () {
+    acceptNumber() {
       if (this.phone.length < 11) {
-        this.error = true
-        this.errorclass = true
+        this.error = true;
+        this.errorclass = true;
       } else if (this.phone.length === 11) {
-        this.error = false
-        this.errorclass = false
-        this.disabled = true
-        this.btnprimary = true
+        this.error = false;
+        this.errorclass = false;
+        this.disabled = true;
+        this.btnprimary = true;
       }
     },
-    clipimage () {
+    clipimage() {
       setTimeout(() => {
-        this.tooltip = true
-      }, 1000)
+        this.tooltip = true;
+      }, 1000);
     }
   }
-}
+};
 </script>

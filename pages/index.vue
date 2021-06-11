@@ -150,7 +150,7 @@ export default {
       try {
         const formData = new FormData()
         formData.append('email', this.email)
-        await this.$axios.post(`https://class54-backend.herokuapp.com/admin/notify/create?.${this.email}`,
+        await this.$axios.post(`http://3.142.39.206/admin/notify/create?.${this.email}`,
           formData
         ).then((response) => {
           // console.log(response)
